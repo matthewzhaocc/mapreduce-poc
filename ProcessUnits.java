@@ -10,12 +10,14 @@ import org.apache.hadoop.mapred.*;
 import org.apache.hadoop.util.*; 
 
 public class ProcessUnits {
-   //Mapper class 
+   /**
+    * maps the data as year, average
+    */
    public static class E_EMapper extends MapReduceBase implements 
-   Mapper<LongWritable ,/*Input key Type */ 
-   Text,                /*Input value Type*/ 
-   Text,                /*Output key Type*/ 
-   IntWritable>        /*Output value Type*/ 
+   Mapper<LongWritable ,
+   Text,               
+   Text,               
+   IntWritable> 
    {
       //Map function 
       public void map(LongWritable key, Text value, 
@@ -35,7 +37,9 @@ public class ProcessUnits {
       } 
    }
    
-   //Reducer class 
+   /**
+    * reduce data to be 30+
+    */
    public static class E_EReduce extends MapReduceBase implements Reducer< Text, IntWritable, Text, IntWritable > {
    
       //Reduce function 
@@ -52,11 +56,15 @@ public class ProcessUnits {
       } 
    }
 
-   //Main function 
-   public static void main(String args[])throws Exception { 
+   /**
+    * connects everything together
+    * @param args
+    * @throws Exception
+    */
+   public static void main(String args[])throws IOException { 
       JobConf conf = new JobConf(ProcessUnits.class); 
       
-      conf.setJobName("max_eletricityunits"); 
+      conf.setJobName("max"); 
       conf.setOutputKeyClass(Text.class);
       conf.setOutputValueClass(IntWritable.class); 
       conf.setMapperClass(E_EMapper.class); 
